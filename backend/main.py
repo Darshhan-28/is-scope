@@ -117,6 +117,15 @@ def _get_session(sid: str) -> dict:
     return s
 
 
+@app.get("/")
+def root():
+    """Landing pointer — the backend is API-only; the UI lives on the Vite dev server."""
+    return {"service": "IS-SCOPE API", "version": "0.1.0",
+            "health": "/api/health", "sample_spec": "/api/sample-spec",
+            "ui": "run the frontend (cd frontend; npm run dev) and open http://localhost:5173",
+            "disclaimer": "Prototype dataset — not an official BIS database."}
+
+
 @app.get("/api/health")
 def health():
     return {"status": "ok", "standards": database.count_standards(),
